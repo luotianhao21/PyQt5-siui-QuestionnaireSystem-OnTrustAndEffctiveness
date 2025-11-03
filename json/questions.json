@@ -1,0 +1,477 @@
+{
+    "questions": [
+        {
+            "id": 1,
+            "dimension": "info",
+            "type": ["only_check"],
+            "question": "您的性别",
+            "options": [
+                "男",
+                "女"
+            ]
+        },
+        {
+            "id": 2,
+            "dimension": "info",
+            "type": ["input"],
+            "question": "您的年龄"
+        },
+        {
+            "id": 3,
+            "dimension": "info",
+            "type": ["only_check"],
+            "question": "您所在的大学",
+            "options": [
+                "广西医科大学",
+                "广西大学",
+                "桂林医科大学",
+                "广西师范大学",
+                "右江民族医学院",
+                "其他学校"
+            ]
+        },
+        {
+            "id": 4,
+            "dimension": "info",
+            "type": ["input", "by"],
+            "by": 3,
+            "by_answer": "其他学校",
+            "remark": "依靠于上一题的答案，当您选择“其他学校”时，需要填写您所在的大学名称（弹出输入框）",
+            "question": "请填写您所在的大学名称（如选择其他学校）"
+        },
+        {
+            "id": 5,
+            "dimension": "info",
+            "type": ["only_check"],
+            "question": "您的年级",
+            "options": [
+                "大一",
+                "大二",
+                "大三",
+                "大四",
+                "研究生及以上"
+            ]
+        },
+        {
+            "id": 6,
+            "dimension": "info",
+            "type": ["only_check"],
+            "question": "您的民族",
+            "options": [
+                "汉族",
+                "壮族",
+                "瑶族",
+                "苗族",
+                "侗族",
+                "其他"
+            ]
+        },
+        {
+            "id": 7,
+            "dimension": "info",
+            "type": ["input", "by"],
+            "by": 6,
+            "by_answer": "其他",
+            "remark": "依靠于上一题的答案，当您选择“其他”时，需要填写您的民族名称（弹出输入框）",
+            "question": "请注明您的民族（如选择其他）"
+        },
+        {
+            "id": 8,
+            "dimension": "knowledge",
+            "type": ["only_check"],
+            "question": "牙齿缺失表明口腔不健康。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 9,
+            "dimension": "knowledge",
+            "type": ["only_check"],
+            "question": "牙龈出血表明口腔不健康。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 10,
+            "dimension": "knowledge",
+            "type": ["only_check"],
+            "question": "口臭表明口腔不健康。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 11,
+            "dimension": "knowledge",
+            "type": ["only_check"],
+            "question": "有牙结石表明口腔不健康。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 12,
+            "dimension": "knowledge",
+            "type": ["only_check"],
+            "question": "吸烟影响口腔健康。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 13,
+            "dimension": "knowledge",
+            "type": ["only_check"],
+            "question": "刷牙力度大些牙齿会更干净。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [0, 1]
+        },
+        {
+            "id": 14,
+            "dimension": "knowledge",
+            "type": ["only_check"],
+            "question": "刷牙最好用温水。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 15,
+            "dimension": "knowledge",
+            "type": ["only_check"],
+            "question": "饭后使用牙线利于口腔健康。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 16,
+            "dimension": "knowledge",
+            "type": ["only_check"],
+            "question": "茶叶水漱口有一定好处。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 17,
+            "dimension": "attitude",
+            "type": ["only_check"],
+            "question": "张口轻松，利于社会交往。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 18,
+            "dimension": "attitude",
+            "type": ["only_check"],
+            "question": "口腔细菌可能影响全身健康。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 19,
+            "dimension": "attitude",
+            "type": ["only_check"],
+            "question": "吸烟多的人容易患牙周病。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 20,
+            "dimension": "attitude",
+            "type": ["only_check"],
+            "question": "牙周病会导致牙齿松动。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 21,
+            "dimension": "attitude",
+            "type": ["only_check"],
+            "question": "喝碳酸饮料多的人易患牙蚀。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 22,
+            "dimension": "attitude",
+            "type": ["only_check"],
+            "question": "饭后未及时漱口易长口腔细菌。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 23,
+            "dimension": "attitude",
+            "type": ["only_check"],
+            "question": "去医院费用高，加重经济负担。",
+            "options": [
+                "同意",
+                "不同意/不清楚"
+            ],
+            "score": [0, 1]
+        },
+        {
+            "id": 24,
+            "dimension": "behavior",
+            "type": ["only_check"],
+            "question": "发现牙齿有残根及时去医院处理。",
+            "options": [
+                "从不",
+                "很少",
+                "有时",
+                "经常",
+                "总是"
+            ],
+            "score": [1, 2, 3, 4, 5]
+        },
+        {
+            "id": 25,
+            "dimension": "behavior",
+            "type": ["only_check"],
+            "question": "出现牙龈脓肿及时去医院检查。",
+            "options": [
+                "从不",
+                "很少",
+                "有时",
+                "经常",
+                "总是"
+            ],
+            "score": [1, 2, 3, 4, 5]
+        },
+        {
+            "id": 26,
+            "dimension": "behavior",
+            "type": ["only_check"],
+            "question": "出现口臭及时去医院检查。",
+            "options": [
+                "从不",
+                "很少",
+                "有时",
+                "经常",
+                "总是"
+            ],
+            "score": [1, 2, 3, 4, 5]
+        },
+        {
+            "id": 27,
+            "dimension": "behavior",
+            "type": ["only_check"],
+            "question": "发生牙痛及时去医院处理。",
+            "options": [
+                "从不",
+                "很少",
+                "有时",
+                "经常",
+                "总是"
+            ],
+            "score": [1, 2, 3, 4, 5]
+        },
+        {
+            "id": 28,
+            "dimension": "behavior",
+            "type": ["only_check"],
+            "question": "每次进食后及时漱口。",
+            "options": [
+                "从不",
+                "很少",
+                "有时",
+                "经常",
+                "总是"
+            ],
+            "score": [1, 2, 3, 4, 5]
+        },
+        {
+            "id": 29,
+            "dimension": "behavior",
+            "type": ["only_check"],
+            "question": "每天刷牙少于２次。",
+            "options": [
+                "从不",
+                "很少",
+                "有时",
+                "经常",
+                "总是"
+            ],
+            "score": [5, 4, 3, 2, 1]
+        },
+        {
+            "id": 30,
+            "dimension": "behavior",
+            "type": ["only_check"],
+            "question": "超过３个月才更换１次牙刷。",
+            "options": [
+                "从不",
+                "很少",
+                "有时",
+                "经常",
+                "总是"
+            ],
+            "score": [5, 4, 3, 2, 1]
+        },
+        {
+            "id": 31,
+            "dimension": "behavior",
+            "type": ["only_check"],
+            "question": "每次刷牙没有刷够３分钟。",
+            "options": [
+                "从不",
+                "很少",
+                "有时",
+                "经常",
+                "总是"
+            ],
+            "score": [5, 4, 3, 2, 1]
+        },
+        {
+            "id": 32,
+            "dimension": "health_status",
+            "type": ["only_check"],
+            "question": "牙齿无龋洞（蛀牙）。",
+            "options": [
+                "是",
+                "否"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 33,
+            "dimension": "health_status",
+            "type": ["only_check"],
+            "question": "牙齿无疼痛。",
+            "options": [
+                "是",
+                "否"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 34,
+            "dimension": "health_status",
+            "type": ["only_check"],
+            "question": "牙龈无红肿、出血。",
+            "options": [
+                "是",
+                "否"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 35,
+            "dimension": "health_status",
+            "type": ["only_check"],
+            "question": "牙齿无松动。",
+            "options": [
+                "是",
+                "否"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 36,
+            "dimension": "health_status",
+            "type": ["only_check"],
+            "question": "口腔无异味。",
+            "options": [
+                "是",
+                "否"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 37,
+            "dimension": "health_status",
+            "type": ["only_check"],
+            "question": "对自己的口腔外观满意。",
+            "options": [
+                "是",
+                "否"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 38,
+            "dimension": "health_status",
+            "type": ["only_check"],
+            "question": "是否有牙齿缺失（未修复）。",
+            "options": [
+                "是",
+                "否"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 39,
+            "dimension": "health_status",
+            "type": ["only_check"],
+            "question": "是否有龋齿（蛀牙）未治疗。",
+            "options": [
+                "是",
+                "否"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 40,
+            "dimension": "health_status",
+            "type": ["only_check"],
+            "question": "是否因口腔问题影响睡眠。",
+            "options": [
+                "是",
+                "否"
+            ],
+            "score": [1, 0]
+        },
+        {
+            "id": 41,
+            "dimension": "health_status",
+            "type": ["only_check"],
+            "question": "出现牙结石情况。",
+            "options": [
+                "是",
+                "否"
+            ],
+            "score": [1, 0]
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+PyQt5
+pandas
+numpy
+scipy
+scikit-learn
+pingouin
+factor-analyzer
+https://github.com/ChinaIceF/PyQt-SiliconUI/archive/refs/heads/main.zip

@@ -33,12 +33,18 @@ class ImportRoundedMenu(SiRoundedMenu):
 
         self.main_menu = SiRoundedMenu(parent)
 
+        self.import_from_excel = QAction(self.main_menu)
+        self.import_from_excel.setText('从 <strong>Excel</strong> 文件导入')
+        self.import_from_excel.setIcon(SiGlobal.siui.iconpack.toIcon('ic_fluent_table_add_filled'))
+
         self.import_from_csv = QAction(self.main_menu)
         self.import_from_csv.setText('从 <strong>CSV</strong> 文件导入')
         self.import_from_csv.setIcon(SiGlobal.siui.iconpack.toIcon('ic_fluent_code_filled'))
 
+        self.main_menu.addAction(self.import_from_excel)
         self.main_menu.addAction(self.import_from_csv)
 
+        self.import_from_excel.triggered.connect(lambda _: self.import_from_excel_file())
         self.import_from_csv.triggered.connect(lambda _: self.import_from_csv_file())
 
     def import_from_csv_file(self):

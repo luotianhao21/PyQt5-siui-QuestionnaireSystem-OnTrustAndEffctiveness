@@ -1,6 +1,7 @@
 import sys
 import os
 import json
+from typing import Any
 
 # 退回父级目录
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -215,7 +216,7 @@ class Questions:
         except KeyError:
             return ""
     
-    def getQuestionScore(self, id: int) -> list:
+    def getQuestionScore(self, id: int) -> list[Any] | None | Any:
         '''
         获取该题目的分数列表
         '''

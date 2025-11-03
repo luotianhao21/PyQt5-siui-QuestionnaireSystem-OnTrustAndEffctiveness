@@ -444,3 +444,75 @@ class FilterChildWindowQuestionNumber(SiChildPage):
         self.dataConfirmed.emit(filter_data) # 向上级发送筛选条件数据
         self.close() # 关闭当前窗口
         self.closeParentLayer() # 关闭父窗口（背景暗化）
+
+class K2FilterDimensionChildWindow(SiChildPage):
+
+    dataConfirmed = pyqtSignal(list)
+
+    def __init__(self, *arg, **kwargs):
+        super().__init__(*arg, **kwargs)
+
+        self.question = Questions()
+        self.database = Database()
+
+        self.view().setMinimumWidth(800) # 设置最小宽度
+        self.content().setTitle("选择参与卡方检验的维度（第二~第四与第五（第五固定）维度进行）")
+        self.content().setPadding(64)
+
+        self.root_container = SiDenseVContainer(self)
+        self.root_container.setFixedSize(840, 560)
+        self.root_container.moveTo(65, 80)
+
+        self.dimension_filter_card = FilterCard(self)
+        self.dimension_filter_card.header().removeWidget(self.dimension_filter_card.title)
+        self.dimension_filter_card.setFixedSize(self.dimension_filter_card.size().width(), 530)
+        self.dimension_filter_card.adjustSize()
+
+        self.all_dimensions = ["知识维度", "信念维度", "行为维度"]
+        for dim in self.all_dimensions:
+            self.dimension_filter_card.addFilter(dim)
+        self.dimension_filter_card.adjustSize()
+
+        self.root_container.addWidget(self.dimension_filter_card)
+        self.root_container.adjustSize()
+
+        self.apply_btn = SiPushButtonRefactor(self)
+        self.apply_btn.setText("应用")
+        self.apply_btn.adjustSize()
+        self.apply_btn.resize(self.apply_btn.size().width() + 40, self.apply_btn.size().height())
+        self.apply_btn.clicked.connect(self._upload_filter_data)
+
+        self.content().addWidget(self.root_container)
+        self.content().adjustSize()
+        self.panel().addWidget(self.apply_btn, "right")
+        self.panel().adjustSize()
+        SiGlobal.siui.reloadStyleSheetRecursively(self)
+
+    def setInitData(self, data: list):
+        '''
+        设置初始筛选条件
+        '''
+        if data is None:
+            data = self.all_dimensions
+        data_dict = {
+            "knowledge": "知识维度",
+            "attitude": "信念维度",
+            "behavior": "行为维度",
+        }
+        data = [data_dict[item] for item in data]
+        self.dimension_filter_card.setDefaults(data)
+
+    def _upload_filter_data(self):
+        '''
+        向上级函数传递筛选条件数据
+        '''
+        filter_data:list = self.dimension_filter_card.getFilters()
+        filter_data_dict = {
+            "知识维度": "knowledge",
+            "信念维度": "attitude",
+            "行为维度": "behavior",
+        }
+        filter_data = [filter_data_dict[item] for item in filter_data]
+        self.dataConfirmed.emit(filter_data) # 向上级发送筛选条件数据
+        self.close() # 关闭当前窗口
+        self.closeParentLayer() # 关闭父窗口（背景暗化）

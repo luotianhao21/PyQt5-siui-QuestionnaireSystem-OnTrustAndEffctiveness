@@ -31,7 +31,7 @@ class RightTopCard(SiOptionCardPlane):
         self.sidebarMsg = SideBarMessage() # 侧边栏消息
 
         self.questionnaire_filter_data: QuestionnaireFilterData = self.database.getDefaultQuestionnaireFilterData() # 问卷筛选条件
-        self.question_number_filter_data: list[str] = self.questions.getDimensionQuestionsIDs("knowledge") + self.questions.getDimensionQuestionsIDs("attitude") + self.questions.getDimensionQuestionsIDs("behavior") + self.questions.getDimensionQuestionsIDs("health_status") # 题目题号筛选数据
+        self.question_number_filter_data: list[int] = self.questions.getDimensionQuestionsIDs("knowledge") + self.questions.getDimensionQuestionsIDs("attitude") + self.questions.getDimensionQuestionsIDs("behavior") + self.questions.getDimensionQuestionsIDs("health_status") # 题目题号筛选数据
 
         # 用于持有当前正在运行的 Effectiveness 实例，防止被回收导致线程提前销毁
         self._current_effectiveness = None
@@ -50,6 +50,7 @@ class RightTopCard(SiOptionCardPlane):
         self.refilter_btn.attachment().load(SiGlobal.siui.iconpack.get("ic_fluent_filter_sync_filled"))
         self.refilter_btn.resize(32, 32)
         self.refilter_btn.setHint("重置筛选")
+        self.refilter_btn.clicked.connect(self.initFilters)
 
         self.header().addWidget(self.refilter_btn, "right")
         self.header().addWidget(self.filter_btn, "right")
@@ -354,5 +355,11 @@ class RightTopCard(SiOptionCardPlane):
                     msg_type="error",
                     fold_after=4
                 )
-                #import traceback
-                #traceback.print_exc()
+
+    def initFilters(self, _: int):
+        '''
+        初始化筛选条件
+        @para _: 无用参数
+        '''
+        self.question_number_filter_data = self.questions.getDimensionQuestionsIDs("knowledge") + self.questions.getDimensionQuestionsIDs("attitude") + self.questions.getDimensionQuestionsIDs("behavior") + self.questions.getDimensionQuestionsIDs("health_status")
+        self.updateTable()

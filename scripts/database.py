@@ -170,25 +170,59 @@ class QuestionnaireScores:
         self.scores = scores
 
     def getScores(self) -> list[int]:
+        """获取所有题目分数列表"""
         return self.scores
     
     def getScoreByNumbert(self, numbert: int | str) -> int:
+        """获取某题目分数"""
         return self.scores[int(numbert) - 8]
 
     def getDimensionScores(self, dimension: str) -> list[int]:
+        """获取某维度分数列表"""
         dimension_questions = _questions.getDimensionQuestions(dimension)
         return [self.getScoreByNumbert(q["id"]) for q in dimension_questions]
+
+    def getDimensionScoresSum(self, dimension: str) -> int:
+        """获取某维度分数总和"""
+        return sum(self.getDimensionScores(dimension))
     
     def getIDsScores(self, ids: list[int | str]) -> list[int]:
+        """获取指定题目ID的分数列表"""
         return [self.getScoreByNumbert(i) for i in ids]
 
     def getDimensionAndIDsScores(self, dimension: str, ids: list[int | str]) -> list[int]:
+        """获取某维度中指定题目ID的分数列表"""
         dimension_questions = _questions.getDimensionQuestions(dimension)
         ids = [str(i) for i in ids]
         return [self.getScoreByNumbert(q["id"]) for q in dimension_questions if str(q["id"]) in ids]
     
     def getDimensionAllscore(self, dimension: str) -> int:
+        """获取某维度所有题目分数总和"""
         return sum(self.getDimensionScores(dimension))
+
+    def isDimensionPassed(self, dimension: str) -> bool | None:
+        """判断该维度是否及格"""
+        if not dimension in ["knowledge", "attitude", "behavior"]:
+            return None
+        pass_scores = {
+            "knowledge": 6,
+            "attitude": 5,
+            "behavior": 24
+        }
+        if self.getDimensionScoresSum(dimension) >= pass_scores[dimension]:
+            return True
+        else:
+            return False
+
+    def getHealthStatusStatus(self) -> str | None:
+        """获取健康状态维度的分数情况"""
+        total_score = self.getDimensionScoresSum("health_status")
+        if total_score < 6:
+            return "不合格"
+        elif total_score <= 8:
+            return "合格"
+        else:
+            return "优秀"
 
 # 数据库操作类（线程安全版）
 class Database:
@@ -383,6 +417,10 @@ class Database:
                 except:
                     scores.append(0)
         return QuestionnaireScores(id, scores)
+
+    def getDefaultK2DimensionFilters(self) -> list[str]:
+        """获取卡方时筛选的三个维度条件（英文）"""
+        return ["knowledge", "attitude", "behavior"]
 
     def import_without_abcd(self, data: list[str]) -> list[str]:
         """移除选项中的ABCD前缀"""

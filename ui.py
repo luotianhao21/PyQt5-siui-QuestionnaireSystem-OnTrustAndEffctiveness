@@ -77,5 +77,6 @@ if __name__ == '__main__':
 
     window.home_page.data_widgets.left_bottom_card.updateTable() # 更新左下卡片
     window.home_page.data_widgets.right_top_card.updateTable() # 更新右上卡片
+    window.home_page.data_widgets.button_card.updateTabel() # 更新底部卡片
 
     sys.exit(app.exec_())

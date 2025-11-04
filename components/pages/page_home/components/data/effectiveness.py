@@ -58,8 +58,8 @@ class EffectivenessDatas:
         print("==========\n")
 
 class EffectivenessDataPyqtSignal(QObject):
-    finish = pyqtSignal(EffectivenessDatas) # 效度分析成功信号
-    error = pyqtSignal(warnings.WarningMessage) # 效度分析失败信号
+    finish: pyqtSignal = pyqtSignal(EffectivenessDatas) # 效度分析成功信号
+    error: pyqtSignal = pyqtSignal(warnings.WarningMessage) # 效度分析失败信号
 
 class EffectivenessWorker(QObject):
     """
@@ -101,6 +101,8 @@ class Effectiveness(QObject):
         @param scores_list: 各个问卷的分数列表
         '''
         super().__init__()
+        self._effectiveness_worker = None
+        self._effectiveness_thread = None
         self.signals = EffectivenessDataPyqtSignal()
         self.questions = Questions() # 题目管理类
 
@@ -191,7 +193,7 @@ class Effectiveness(QObject):
             return
 
         # 创建线程与 worker，并保持引用防止被垃圾回收
-        thread = QThread(self)  # 将 self 作为父对象以减少被回收几率
+        thread: QThread = QThread(self)  # 将 self 作为父对象以减少被回收几率
         worker = EffectivenessWorker(self)
         worker.moveToThread(thread)
         self._effectiveness_thread = thread

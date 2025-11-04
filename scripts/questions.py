@@ -194,7 +194,7 @@ class Questions:
                 by_questions.append(data)
         return by_questions
     
-    def getQuestionByID(self, id: int) -> int:
+    def getQuestionByID(self, id: int) -> int | None | Any:
         '''
         获取该题目依赖题目的ID
         '''

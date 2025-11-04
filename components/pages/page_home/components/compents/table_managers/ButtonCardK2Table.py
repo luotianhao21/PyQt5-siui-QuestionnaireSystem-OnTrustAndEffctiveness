@@ -11,6 +11,8 @@ class ButtonCardK2Table(ABCSiTabelManager):
     def _value_write_parser(self, row_index, col_index, value):
         # 重写该方法以实现对表格数据的写入
         widget = self.parent().getRowWidget(row_index)[col_index]
+        widget.setTextColor(self.parent().getColor(SiColor.TEXT_B))
+        widget.setFont(SiFont.tokenized(GlobalFont.S_BOLD))
         widget.setText(value)
 
     def _widget_creator(self, col_index):

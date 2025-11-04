@@ -165,8 +165,8 @@ class QuestionnaireFilterData:
 
 # 问卷分数处理类
 class QuestionnaireScores:
-    def __init__(self, id: int, scores: list[int | str]):
-        self.id = id
+    def __init__(self, _id: int, scores: list[int | str]):
+        self.id = _id
         self.scores = scores
 
     def getScores(self) -> list[int]:
@@ -196,23 +196,33 @@ class QuestionnaireScores:
         ids = [str(i) for i in ids]
         return [self.getScoreByNumbert(q["id"]) for q in dimension_questions if str(q["id"]) in ids]
     
-    def getDimensionAllscore(self, dimension: str) -> int:
+    def getDimensionAllScores(self, dimension: str) -> int:
         """获取某维度所有题目分数总和"""
         return sum(self.getDimensionScores(dimension))
 
-    def isDimensionPassed(self, dimension: str) -> bool | None:
-        """判断该维度是否及格"""
-        if not dimension in ["knowledge", "attitude", "behavior"]:
-            return None
+    def isDimensionsPassed(self, dimensions: list[str]) -> bool | None:
+        """
+        判断多个维度合起来是否及格
+        True：合格
+        False：不合格
+        """
+        __dimensions__ = ["knowledge", "attitude", "behavior"]
+
         pass_scores = {
             "knowledge": 6,
             "attitude": 5,
             "behavior": 24
         }
-        if self.getDimensionScoresSum(dimension) >= pass_scores[dimension]:
-            return True
-        else:
-            return False
+
+        total_scores: int = 0
+        passed_scores: int = 0
+        for dimension in dimensions:
+            if not dimension in __dimensions__:
+                return None
+            total_scores += self.getDimensionScoresSum(dimension)
+            passed_scores += pass_scores[dimension]
+
+        return total_scores >= passed_scores
 
     def getHealthStatusStatus(self) -> str | None:
         """获取健康状态维度的分数情况"""
@@ -220,7 +230,7 @@ class QuestionnaireScores:
         if total_score < 6:
             return "不合格"
         elif total_score <= 8:
-            return "合格"
+            return "良好"
         else:
             return "优秀"
 
@@ -417,6 +427,14 @@ class Database:
                 except:
                     scores.append(0)
         return QuestionnaireScores(id, scores)
+
+    def getAllQuestionnairesScores(self) -> list[QuestionnaireScores]:
+        """获取所有问卷分数类"""
+        datas = self.get_all_questionnaire_data()
+        return_data: list[QuestionnaireScores] = []
+        for data in datas:
+            return_data.append(self.getQuestionnairesScores(int(data[0])))
+        return return_data
 
     def getDefaultK2DimensionFilters(self) -> list[str]:
         """获取卡方时筛选的三个维度条件（英文）"""

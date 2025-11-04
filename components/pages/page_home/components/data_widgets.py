@@ -34,6 +34,7 @@ class DataWidgets(SiDenseVContainer):
 
         self.left_top_card.filter_updated.connect(self.left_bottom_card.on_uplevel_filter_updated)
         self.left_top_card.filter_updated.connect(self.right_top_card.on_uplevel_filter_updated)
+        self.left_top_card.filter_updated.connect(self.button_card.on_uplevel_filter_updated)
 
         self.left_container_v.addWidget(self.left_top_card)
         self.left_container_v.addWidget(self.left_bottom_card)

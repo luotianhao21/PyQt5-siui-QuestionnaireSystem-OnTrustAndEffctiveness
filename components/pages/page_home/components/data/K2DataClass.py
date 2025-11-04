@@ -7,7 +7,8 @@
 from scipy import stats  # 用于计算P值
 from PyQt5.QtCore import pyqtSignal, QThread, QObject
 import warnings
-from scripts.database import Database, QuestionnaireScores
+from scripts.database import Database, QuestionnaireScores, QuestionnaireFilterData
+
 
 class K2ReturnData:
     def __init__(self, k2table: list[list[int]], chi2: float, df: int, p_value: float):
@@ -56,7 +57,12 @@ class K2DataWorker(QObject):
     def run(self):
         try:
             # 获取所有问卷分数列表
-            questionnaire_scores: list[QuestionnaireScores] = self.database.getAllQuestionnairesScores()
+            questionnaire_scores: list[QuestionnaireScores] = []
+            questionnaires = self.database.getQuestionDataByFilters(self.k2data.questionnaire_filter_data)
+            for row in questionnaires:
+                __id = row[0]
+                questionnaire_scores.append(self.database.getQuestionnairesScores(__id))
+
             self.clearData()
             for questionnaire_score in questionnaire_scores:
                 self.addData(
@@ -118,8 +124,9 @@ class K2Data(QObject):
         self._k2_worker = None
         self._k2_thread = None
         self.signals = K2DataSignal()
+        self.questionnaire_filter_data: QuestionnaireFilterData = QuestionnaireFilterData()
 
-    def getK2(self, dimensions: list[str]):
+    def getK2(self, dimensions: list[str], questionnaire_filter_data: QuestionnaireFilterData):
         """
         获取卡方（使用附属线程）
         """
@@ -127,6 +134,8 @@ class K2Data(QObject):
         existing_thread = getattr(self, "_k2_thread", None)
         if existing_thread is not None and existing_thread.isRunning():
             return
+
+        self.questionnaire_filter_data = questionnaire_filter_data
 
         # 创建线程 和 worker
         thread: QThread = QThread(self)

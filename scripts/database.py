@@ -67,7 +67,8 @@ class ImportWorker(QObject):
 
                 # 数据清洗
                 data = self.database.import_without_abcd(data[gender_index:gender_index + questions_num])
-                data[1] = data[1].replace("\t", "")
+                if type(data[1]) is str:
+                    data[1] = data[1].replace("\t", "")
                 
                 # 尝试转换成整数
                 try:

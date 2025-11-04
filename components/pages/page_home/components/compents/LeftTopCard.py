@@ -126,11 +126,12 @@ class LeftTopCard(SiOptionCardPlane):
         self.capsule_button_2.setValue(filtered_num)
         self.capsule_button_1.adjustSize()
         self.capsule_button_2.adjustSize()
-        self.body().adjustSize()
+
         # 更新进度条
         filtered_baifen = round(filtered_num/total_num*100, 2) if total_num > 0 else 0
         self.progress_bar.setHint(f"已筛选问卷 {filtered_num}/{total_num} ({filtered_baifen}%)")
         self.progress_bar.setValue(filtered_baifen) # 设置进度条值
+        self.body().adjustSize()
 
     def on_database_changed(self, _: int):
         '''

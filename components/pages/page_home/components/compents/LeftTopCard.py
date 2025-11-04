@@ -20,7 +20,7 @@ from scripts.database import Database, QuestionnaireFilterData
 
 class LeftTopCard(SiOptionCardPlane):
 
-    filter_updated = pyqtSignal(QuestionnaireFilterData) # 当筛选条件更新时继续向上传递信号
+    filter_updated: pyqtSignal = pyqtSignal(QuestionnaireFilterData) # 当筛选条件更新时继续向上传递信号
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -61,12 +61,14 @@ class LeftTopCard(SiOptionCardPlane):
         self.capsule_button_1.setText("全部问卷")
         self.capsule_button_1.setValue(0) # 设置数值
         self.capsule_button_1.setToolTip("数据库中已经存在的问卷总数")
+        self.capsule_button_1.adjustSize()
 
         self.capsule_button_2 = MyCapsuleButton(self)
         self.capsule_button_2.setText("已筛选问卷")
         self.capsule_button_2.setValue(0) # 设置数值
         self.capsule_button_2.setToolTip("经过筛选条件后剩余的问卷数")
         self.capsule_button_2.setThemeColor(SiCapsuleButton.Theme.Yellow)
+        self.capsule_button_2.adjustSize()
 
         self.btn_liner_container.addWidget(self.capsule_button_1)
         self.btn_liner_container.addWidget(self.capsule_button_2)
@@ -79,6 +81,7 @@ class LeftTopCard(SiOptionCardPlane):
         self.body().addWidget(self.btn_liner_container)
         self.body().addPlaceholder(2)
         self.body().addWidget(self.progress_bar)
+        self.body().adjustSize()
 
         self.updateFilterData() # 更新筛选条件得到的结果
 
@@ -125,6 +128,9 @@ class LeftTopCard(SiOptionCardPlane):
         # 更新按钮数值
         self.capsule_button_1.setValue(total_num)
         self.capsule_button_2.setValue(filtered_num)
+        self.capsule_button_1.adjustSize()
+        self.capsule_button_2.adjustSize()
+        self.body().adjustSize()
         # 更新进度条
         filtered_baifen = round(filtered_num/total_num*100, 2) if total_num > 0 else 0
         self.progress_bar.setHint(f"已筛选问卷 {filtered_num}/{total_num} ({filtered_baifen}%)")

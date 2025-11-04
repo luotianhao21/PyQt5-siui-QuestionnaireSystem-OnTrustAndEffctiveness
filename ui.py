@@ -6,6 +6,7 @@ from PyQt5.QtGui import QIcon
 import siui
 from siui.core import SiColor, SiGlobal
 from siui.templates.application.application import SiliconApplication
+from siui.templates.application.components.page_view.page_view import PageView, PageButton
 
 siui.core.globals.SiGlobal.siui.loadIcons(
     icons.IconDictionary(color=SiGlobal.siui.colors.fromToken(SiColor.SVG_NORMAL)).icons
@@ -56,13 +57,26 @@ class MySiliconApp(SiliconApplication):
                                 hint="问卷管理",
                                 side="top"
                                 )
-        
-        self.questionnaire_page.questionnaire_list_card.databaseChanged.connect(self.home_page.data_widgets.left_top_card.on_database_changed)
+
+        self.need_change = False
+
+        self.questionnaire_page.questionnaire_list_card.databaseChanged.connect(self._data_changed)
+        homepage_btn: PageButton = self.layerMain().page_view.page_navigator.buttons[0]
+        homepage_btn.activated.connect(self._on_to_home_page)
         # self.questionnaire_page.questionnaire_list_card.databaseChanged.connect(lambda _: self.home_page.data_widgets.left_bottom_card.updateTable())
         # self.questionnaire_page.questionnaire_list_card.databaseChanged.connect(lambda _: self.home_page.data_widgets.right_top_card.updateTable())
 
         self.layerMain().setPage(0) # 显示主页
         SiGlobal.siui.reloadAllWindowsStyleSheet()
+
+    def _data_changed(self, _):
+        self.need_change = True
+        self.home_page.data_widgets.left_top_card.on_database_changed(0)
+
+    def _on_to_home_page(self):
+        if self.need_change:
+            self.need_change = False
+            self.home_page.data_widgets.left_top_card.__emit__()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

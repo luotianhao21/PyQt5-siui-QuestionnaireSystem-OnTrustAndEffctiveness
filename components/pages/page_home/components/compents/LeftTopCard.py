@@ -106,10 +106,6 @@ class LeftTopCard(SiOptionCardPlane):
 
         self.filters_saved = new_data
         self.updateFilterData()
-        try:
-            self.filter_updated.emit(new_data) # 向上传递信号
-        except Exception as e:
-            print("MD，傻逼data不知道为什么又type错误了", e)
 
     def initFilters(self):
         '''
@@ -143,4 +139,7 @@ class LeftTopCard(SiOptionCardPlane):
         '''
         self.initFilters()
         self.updateFilterData()
-        self.filter_updated.emit(self.filters_saved) # 向上传递信号
+
+    def __emit__(self):
+        # 做一个滞留，当页面还留在问卷管理[1]时不向上传递，当切回到主页[0]时向上传递
+        self.filter_updated.emit(self.filters_saved)  # 向上传递信号

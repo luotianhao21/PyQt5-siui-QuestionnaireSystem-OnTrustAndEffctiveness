@@ -226,7 +226,7 @@ class QuestionnaireTableManager(ABCSiTabelManager):
         # 子窗口提交后更新数据库
         self.database.update_questionnaire_data(i, data)
         # 更新表格
-        self.update_table_func()
+        # self.update_table_func()
 
 class QuestionnaireListCard(SiOptionCardPlane):
 
@@ -358,7 +358,6 @@ class QuestionnaireListCard(SiOptionCardPlane):
     def _on_add_questionnaire_sumbit(self, data: list):
         self.database.add_questionnaire_data(data)
         self.updateTable()
-        self.databaseChanged.emit(0)
 
     def _on_del_questionnaire_longPressed(self):
         # 删除问卷按钮被点击
@@ -367,7 +366,6 @@ class QuestionnaireListCard(SiOptionCardPlane):
         checked_rows = [i + 1 for i in checked_rows]
         self.database.delete_questionnaire_datas(checked_rows)
         self.updateTable()
-        self.databaseChanged.emit(0)
 
 class PageQuestionnaire(SiPage):
     def __init__(self, *args, **kwargs):

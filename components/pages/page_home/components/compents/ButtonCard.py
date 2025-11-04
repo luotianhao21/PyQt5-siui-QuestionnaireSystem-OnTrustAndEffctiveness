@@ -103,7 +103,17 @@ class ButtonCard(SiOptionCardPlane):
         self.table.addColumn("合计", 120, 40, Qt.AlignCenter | Qt.AlignVCenter)
         self.table.init_Rows()
 
+        self.k2_btn.setValue("nan")
+        self.df_btn.setValue("nan")
+        self.p_value.setValue("nan")
+
+        self.k2_btn.adjustSize()
+        self.df_btn.adjustSize()
+        self.p_value.adjustSize()
+
         self.body().addWidget(self.table)
+        self.table.show()
+        self.table.reloadStyleSheet()
         self.body().addWidget(self.k2_btn)
         self.body().addWidget(self.df_btn)
         self.body().addWidget(self.p_value)
@@ -141,7 +151,7 @@ class ButtonCard(SiOptionCardPlane):
                 text=str(e),
                 msg_type="error",
             )
-
+            return
         self.sidebarMsg.sendMessage(
             title="卡方检验",
             text="卡方检验成功",
@@ -169,6 +179,7 @@ class ButtonCard(SiOptionCardPlane):
         """
         更新表格
         """
+
         if not self.dimensions_filter_data or len(self.dimensions_filter_data) == 0:
             self.sidebarMsg.sendMessage(
                 title="筛选为空",
@@ -202,6 +213,7 @@ class ButtonCard(SiOptionCardPlane):
                     msg_type="error",
                     fold_after=4
                 )
+                self.clear()
 
         # 成功时更新 UI 并清理引用
         def _on_finish(k2data: K2ReturnData):
@@ -246,4 +258,7 @@ class ButtonCard(SiOptionCardPlane):
         '''
         if not data is None:
             self.questionnaire_filter_data = data
-            self.updateTabel()
+            try:
+                self.updateTabel()
+            except Exception as e:
+                print(e)
